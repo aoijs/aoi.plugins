@@ -20,7 +20,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Leref/aoi.js-util.git"
+    "url": "git+https://github.com/Leref/aoi.js-library.git"
   },
   "keywords": [
     "aoi.js",
