@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+require("./packageWarning")();
 
 const colorize = (text, colorCode) => `\u001b[${colorCode}m${text}\u001b[0m`;
 

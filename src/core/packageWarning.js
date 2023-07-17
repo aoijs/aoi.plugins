@@ -19,7 +19,7 @@ module.exports = async () => {
         const isDevVersion = json.version.includes('dev');
 
         if (!isDevVersion && json.version !== latestVersion) {
-            console.warn('\x1b[31mAoiLibrary:\x1B[0m aoi.js is outdated! Update with "npm install aoi.js-library@latest".');
+            console.warn(`\x1b[31mAoiLibrary:\x1B[0m ${json.name} is outdated! Update with "npm install ${json.name}@latest".`);
         } else if (isDevVersion) {
             console.warn('\x1b[31mAoiLibrary:\x1B[0m You are currently on a development version.');
         }

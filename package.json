@@ -1,6 +1,6 @@
 {
   "name": "aoi.js-library",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A package to help fetch and create functions with aoi.js",
   "author": "Leref <itzleref@gmail.com>",
   "main": "src/index.js",
