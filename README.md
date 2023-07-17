@@ -60,7 +60,7 @@ new Plugins({ bot }).loadPlugins(['$os', '$comment']);
 
 ## User Plugins
 
-The UserPlugins class allows you to load user-specific plugins for your Discord bot.
+The UserPlugins class allows you to load user-specific plugins for your Discord bot with a directory provided.
 
 To load user plugins: 
 
