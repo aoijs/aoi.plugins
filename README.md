@@ -65,5 +65,5 @@ The UserPlugins class allows you to load user-specific plugins for your Discord 
 To load user plugins: 
 
 ```javascript
-new UserPlugins({ bot }).loadPlugins('plugins');
+new UserPlugins({ bot }).loadUserPlugins('path');
 ```
