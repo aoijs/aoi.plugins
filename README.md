@@ -50,7 +50,13 @@ To load all available plugins:
 
 ```javascript
 new Plugins({ bot }).loadPlugins();
+
 ```
+
+### Available Plugins
+
+- $os
+- $comment
 
 To load specific plugins:
 
