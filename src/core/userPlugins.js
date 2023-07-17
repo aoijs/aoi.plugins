@@ -11,7 +11,7 @@ class UserPlugins {
         }
     }
 
-    loadPlugins(pluginFolderPath) {
+    loadUserPlugins(pluginFolderPath) {
         const bot = this.args.bot;
         const pluginsPath = path.resolve(__dirname, '..', '..', pluginFolderPath);
 
