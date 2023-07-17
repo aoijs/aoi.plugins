@@ -66,10 +66,24 @@ new Plugins({ bot }).loadPlugins(['$os', '$comment']);
 
 ## User Plugins
 
-The UserPlugins class allows you to load user-specific plugins for your Discord bot with a directory provided.
+The UserPlugins class allows you to load user-specific plugins for your Discord bot from a directory of your choice.
 
 To load user plugins: 
 
 ```javascript
 new UserPlugins({ bot }).loadUserPlugins('path');
+```
+
+Replace `path` with the actual path to the directory where your user plugins are located.
+
+### User Plugin Structure
+
+User plugins must be in the following format:
+
+```javascript
+module.exports = {
+    name: "Plugin Name", //$pluginName
+    type: "Plugin Type", //aoi.js or djs
+    code: `Plugin Code` //$pluginCode
+}
 ```
