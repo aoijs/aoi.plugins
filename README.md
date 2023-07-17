@@ -13,8 +13,8 @@ npm aoi.js-library
 ## Setup 
 
 ```javascript
-const {AoiClient} = require("aoi.js");
-const { Plugins, UserPlugins } = require("aoi.js-library");
+const { AoiClient } = require("aoi.js");
+const { Plugins } = require("aoi.js-library");
 
 const bot = new AoiClient({
     token: "DISCORD BOT TOKEN",
@@ -61,8 +61,10 @@ new Plugins({ bot }).loadPlugins();
 To load specific plugins:
 
 ```javascript
-new Plugins({ bot }).loadPlugins(['$os', '$comment']);
+new Plugins({ bot }).loadPlugins(['$comment']);
 ```
+
+By adding this function in the field, it'll only **enable** $comment, it supports mulitple if provided otherwise ignored.
 
 ## User Plugins
 
@@ -80,10 +82,12 @@ Replace `path` with the actual path to the directory where your user plugins are
 
 User plugins must be in the following format:
 
+**plugin.js** (path/plugin.js)
+
 ```javascript
 module.exports = {
     name: "Plugin Name", //$pluginName
     type: "Plugin Type", //aoi.js or djs
-    code: `Plugin Code` //$pluginCode
+    code: `Plugin Code` //pluginCode
 }
 ```
