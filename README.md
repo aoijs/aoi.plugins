@@ -91,3 +91,14 @@ module.exports = {
     code: `Plugin Code` //pluginCode
 }
 ```
+
+### Example User Plugin (aoi.js)
+
+```javascript
+module.exports = {
+    name: "$lerefIcon", //$pluginName
+    type: "aoi.js", //aoi.js or djs
+    params: [], //aoi.js params
+    code: `$lerefAvatar` //pluginCode
+}
+```
