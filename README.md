@@ -1,6 +1,6 @@
 # aoi.js-library
 
-A feature-rich library for building Discord bots with aoi.js
+A plugin library for aoi.js that adds more functions to your aoi.js bot.
 
 ## Installation
 
@@ -57,6 +57,10 @@ new Plugins({ bot }).loadPlugins();
 
 - $os
 - $comment
+
+## Add your plugins to the library
+
+To add your plugins to the library, you can add via **Pull Request** on the **[Github Repository](https://github.com/Leref/aoi.js-library/pulls)**.
 
 To load specific plugins:
 
