@@ -53,22 +53,17 @@ new Plugins({ bot }).loadPlugins();
 
 ```
 
-### Available Plugins
-
-- $os
-- $comment
-
-## Add your plugins to the library
-
-To add your plugins to the library, you can add via **Pull Request** on the **[Github Repository](https://github.com/Leref/aoi.js-library/pulls)**.
-
 To load specific plugins:
 
 ```javascript
 new Plugins({ bot }).loadPlugins(['$comment']);
 ```
 
-By adding this function in the field, it'll only **enable** $comment, it supports mulitple if provided otherwise ignored.
+By adding this function in the field, it'll only **enable $comment**, it supports an multiple array if provided otherwise ignored.
+
+## Add your plugins to the library
+
+To add your plugins to the library, you can add via **Pull Request** on the **[GitHub Repository](https://github.com/Leref/aoi.js-library/pulls)**.
 
 ## User Plugins
 
@@ -106,3 +101,6 @@ module.exports = {
     code: `$lerefAvatar` //pluginCode
 }
 ```
+
+## Available Plugins
+
