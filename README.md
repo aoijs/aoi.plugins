@@ -102,5 +102,4 @@ module.exports = {
 }
 ```
 
-## Available Plugins
-
+### [Available Plugins](https://github.com/Leref/aoi.js-library/tree/main/src/plugins)
