@@ -1,19 +1,20 @@
 {
   "name": "aoi.js-library",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "A package to help fetch and create functions with aoi.js",
   "author": "Leref <itzleref@gmail.com>",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "node index.js",
     "prettycheck": "prettier --check \"src/**/*.js\"",
     "prettywrite": "prettier --write \"src/**/*.js\""
   },
   "engines": {
-    "node": ">=16.9.0"
+    "node": ">=18.x"
   },
   "files": [
-    "src",
+    "dist",
+    "bin",
     "LICENSE",
     "README.md"
   ],
@@ -42,9 +43,18 @@
     "discordbot"
   ],
   "dependencies": {
+    "boxen": "^7.1.1",
+    "chalk": "^5.3.0",
+    "esbuild": "^0.18.14",
+    "ora": "^6.3.1",
     "undici": "^5.18.0"
   },
   "devDependencies": {
-    "aoi.js": "^6.4.0"
+    "@types/node": "^20.4.2",
+    "aoi.js": "^6.4.0",
+    "typescript": "^5.1.6"
+  },
+  "bin": {
+    "aoilib": "./bin/index.mjs"
   }
 }
