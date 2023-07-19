@@ -1,6 +1,10 @@
 module.exports = {
     name: '$comment',
     type: 'djs',
+    author: "default",
+    version: "6.4.0",
+    description: "To comment in a code",
+    example: "$commment[This is a comment, it will not be executed]",
     code: async d => {
         const data = d.util.aoiFunc(d);
         const [text] = data.inside.splits;
