@@ -155,7 +155,8 @@ if (!name) {
 
     console.log(chalk.hex("#A64253")("Bundled!"))
 } else if (name === "add") {
-    const plugin = argv[0];
+    const plugin = argv.filter((x) => !x.startsWith("--"))[0];
+    const isForced = argv.includes("--force");
 
     if(!plugin) {
         console.log(chalk.hex("#A64253")("Please specify a plugin!"))
@@ -166,11 +167,11 @@ if (!name) {
         pluginName = username
         username = "default"
     }
-    if(existsSync(process.cwd()+"/aoijs.plugins")) {
+    if(!existsSync(process.cwd()+"/aoijs.plugins")) {
         writeFileSync(process.cwd()+"/aoijs.plugins", "");
     }
 
-    if(readFileSync(process.cwd()+"/aoijs.plugins", "utf-8").split("\n").includes(plugin)) {
+    if(readFileSync(process.cwd()+"/aoijs.plugins", "utf-8").split("\n").includes(plugin) && !isForced) {
         console.log(chalk.hex("#A64253")("Plugin already exists!"))
         process.exit(1)
     }
@@ -181,4 +182,38 @@ if (!name) {
     appendFileSync(process.cwd()+"/aoijs.plugins", plugin);
     console.log(chalk.hex("#A64253")("Added plugin!"))
 
+} else if (name === "remove") {
+    const plugin = argv.filter((x) => !x.startsWith("--"))[0];
+    const isForced = argv.includes("--force");
+
+    if(!plugin) {
+        console.log(chalk.hex("#A64253")("Please specify a plugin!"))
+        process.exit(1)
+    }
+    let [username, pluginName] = plugin.split("/")
+    if(!pluginName) {
+        pluginName = username
+        username = "default"
+    }
+    if(!existsSync(process.cwd()+"/aoijs.plugins")) {
+         console.log(chalk.hex("#A64253")("Completed!"));
+        process.exit(1)
+    }
+
+    if(!readFileSync(process.cwd()+"/aoijs.plugins", "utf-8").split("\n").includes(plugin) ) {
+        console.log(chalk.hex("#A64253")("Plugin doesn't exist!"))
+        process.exit(1)
+    }
+
+    const path = process.cwd()+`/node_modules/.aoijs.plugins/${plugin.replace("/", "@")}.js`
+    if(existsSync(path)) {
+        unlinkSync(path)
+    }
+    const plugins = readFileSync(process.cwd()+"/aoijs.plugins", "utf-8").split("\n").filter((x) => x !== plugin)
+    writeFileSync(process.cwd()+"/aoijs.plugins", plugins.join("\n"));
+
+    console.log(chalk.hex("#A64253")("Removed plugin!"))
+} else {
+    console.log(chalk.hex("#A64253")("Unknown command!"))
+    process.exit(1)
 }

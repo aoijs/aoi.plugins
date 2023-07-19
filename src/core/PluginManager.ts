@@ -2,6 +2,7 @@ import { AoiClient } from "aoi.js";
 import { existsSync,readFileSync,mkdirSync,createWriteStream } from "node:fs";
 import { getPluginUrl } from "../utils/helpers";
 import { Readable } from "node:stream";
+
 import { ReadableStream } from "stream/web";
 import pkgWarn from "../handler/pkgWarn";
 export class PluginManager {
@@ -31,8 +32,18 @@ export class PluginManager {
         const pluginData = [];
         for(const plugin of plugins) {
             if(!plugin) continue;
+            if(this.#hasPluginCached(plugin)) {
+                const p = require(process.cwd() + "/" + `node_modules/.aoijs.plugins/${plugin.replace("/","@")}.js`);
+                pluginData.push({
+                    error: false,
+                    data: p,
+                    plugin,
+                    message:undefined,
+                });
+            } else {
             const data = await this.#fetchPlugin(plugin);
             pluginData.push(data);
+            }
         }
         const chalk = (await import("chalk")).default;
         const boxen = (await import("boxen")).default;
@@ -105,5 +116,11 @@ export class PluginManager {
 
     async loadPlugins(...plugins:string[]) {
         await this.#load(plugins);
+    }
+
+    #hasPluginCached(plugin:string) {
+        const file = plugin.replace("/","@");
+        const path = `node_modules/.aoijs.plugins/${file}.js`;
+        return existsSync(path);
     }
 }
