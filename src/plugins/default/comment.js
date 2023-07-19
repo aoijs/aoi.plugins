@@ -2,7 +2,7 @@ module.exports = {
     name: '$comment',
     type: 'djs',
     author: "default",
-    version: "6.4.0",
+    version: ["6.4.0"],
     description: "To comment in a code",
     example: "$comment[This is a comment, it will not be executed]",
     code: async d => {
