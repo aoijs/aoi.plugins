@@ -8,7 +8,6 @@ database
 commands
 config.json
 src/tests/
-/plugins
 /index.js
 .idea
 .vscode
