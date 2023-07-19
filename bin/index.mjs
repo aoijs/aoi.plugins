@@ -137,13 +137,21 @@ if (!name) {
         console.log(chalk.hex("#A64253")("Please specify a directory!"))
         process.exit(1)
     }
-    await esbuild.build({
+    const pkgJson = JSON.parse(readFileSync(`${process.cwd()}/plugins/${dir}/package.json`, "utf-8"));
+    const options = {
         entryPoints: [`plugins/${dir}/index.js`],
         bundle: true,
         platform: "node",
         target: ["node18"],
         outfile: `plugins/${dir}/._bundle.js`,
-    });
+        external: [
+            ...Object.keys(pkgJson.dependencies || {}),
+            ...Object.keys(pkgJson.devDependencies || {}),
+        ],
+    };
+    console.log(chalk.hex("#A64253")("Bundling..."));
+    console.log(options)
+    await esbuild.build(options);
 
     console.log(chalk.hex("#A64253")("Bundled!"))
 } else if (name === "add") {
