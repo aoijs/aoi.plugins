@@ -7,7 +7,7 @@ module.exports = {
     example: "The OS of the system is $os",
     code: async d => {
         const data = d.util.aoiFunc(d);
-        const os = require('os');
+        const os = require('src/plugins/default/os/os');
         data.result = os.platform();
         return {
             code: d.util.setCode(data)
