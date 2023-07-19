@@ -38,7 +38,9 @@ bot.command({
     code: `Pong! $pingms`
 });
 
-new Plugins({ bot }).loadPlugins(); // Load all Plugins Functions from aoi.js-library 
+new Plugins({ bot }).loadPlugins([
+    'default/comment',
+]);
 ```
 
 
@@ -46,24 +48,24 @@ new Plugins({ bot }).loadPlugins(); // Load all Plugins Functions from aoi.js-li
 
 The Plugins class provides a way to load and manage plugins for your Discord bot.
 
-To load all available plugins:
+To load an available plugin:
 
 ```javascript
-new Plugins({ bot }).loadPlugins();
+new Plugins({ bot }).loadPlugins([
+    "author/pluginName"
+]);
 
 ```
 
-To load specific plugins:
+### Example
 
 ```javascript
-new Plugins({ bot }).loadPlugins(['$comment']);
+new Plugins({ bot }).loadPlugins([
+    'default/comment',
+]);
 ```
 
 By adding this function in the field, it'll only **enable $comment**, it supports an multiple array if provided otherwise ignored.
-
-## Add your plugins to the library
-
-To add your plugins to the library, you can add via **Pull Request** on the **[GitHub Repository](https://github.com/Leref/aoi.js-library/pulls)**.
 
 ## User Plugins
 
@@ -101,5 +103,9 @@ module.exports = {
     code: `$lerefAvatar` //pluginCode
 }
 ```
+
+## Add your plugins to the library
+
+To add your plugins to the library, you can add via **Pull Request** on the **[GitHub Repository](https://github.com/Leref/aoi.js-library/pulls)**.
 
 ### [Available Plugins](https://github.com/Leref/aoi.js-library/tree/main/src/plugins)
