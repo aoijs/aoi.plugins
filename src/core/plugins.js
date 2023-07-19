@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const {logEnabledPlugins} = require('../handler/functionLoaded');
+const { logEnabledPlugins } = require('../handler/functionLoaded');
 
 class Plugins {
     constructor(args) {
@@ -11,25 +11,60 @@ class Plugins {
         }
     }
 
+    resolvePluginPath(pluginName) {
+        const pluginParts = pluginName.split('/');
+        const pluginFolder = pluginParts[0];
+        const pluginFile = pluginParts[1] || 'index';
+
+        const pluginsPath = path.join(__dirname, '..', 'plugins');
+        const pluginPath = path.join(pluginsPath, pluginFolder, `${pluginFile}.js`);
+
+        if (fs.existsSync(pluginPath)) {
+            return pluginPath;
+        }
+
+        return null;
+    }
+
+    loadPluginFile(pluginPath) {
+        try {
+            const plugin = require(pluginPath);
+            this.args.bot.functionManager.createFunction(plugin);
+        } catch (error) {
+            console.error(`Failed to load plugin: ${pluginPath}`);
+            console.error(error);
+        }
+    }
+
     loadPlugins(enabledPlugins) {
+        if (!enabledPlugins || (Array.isArray(enabledPlugins) && enabledPlugins.length === 0)) {
+            throw new Error('You must provide at least one enabled plugin in the loadPlugins function.');
+        }
+
         const bot = this.args.bot;
-        const pluginsPath = path.join(__dirname, '../plugins');
-        const pluginFiles = fs.readdirSync(pluginsPath);
+        const pluginsPath = path.join(__dirname, '..', 'plugins');
 
-        pluginFiles.forEach(file => {
-            const plugin = require(path.join(pluginsPath, file));
+        const processPlugin = (pluginName) => {
+            const [author, plugin] = pluginName.split('/'); // Splitting author and plugin name
+            const prefixedPluginName = `$${plugin}`;
 
-            // Extract the plugin name from the file name (remove the file extension)
-            const pluginName = path.parse(file).name;
-
-            if (!enabledPlugins || enabledPlugins.includes(`$${pluginName}`)) {
-                bot.functionManager.createFunction(plugin);
+            const pluginPath = this.resolvePluginPath(`${author}/${plugin}`);
+            if (pluginPath) {
+                this.loadPluginFile(pluginPath);
+            } else {
+                console.error(`Could not find plugin: ${pluginName}`);
             }
-        });
+        };
 
-        // Call logEnabledPlugins function to log the enabled plugins at the end of the method
-        logEnabledPlugins(enabledPlugins);
+        if (Array.isArray(enabledPlugins)) {
+            enabledPlugins.forEach(processPlugin);
+        } else {
+            processPlugin(enabledPlugins);
+        }
+
+        // Call the logEnabledPlugins function from functionLoaded.js
+        logEnabledPlugins(enabledPlugins, pluginsPath);
     }
 }
 
-module.exports = {Plugins};
+module.exports = { Plugins };
