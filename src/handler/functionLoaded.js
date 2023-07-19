@@ -9,10 +9,14 @@ const logEnabledPlugins = (enabledPlugins, pluginsPath) => {
 
     if (Array.isArray(enabledPlugins)) {
         enabledPlugins.forEach((pluginName, index) => {
-            const pluginDisplayName = colorize(`Plugin Name: ${pluginName}`, '33'); // Yellow
+            const [, author, plugin] = pluginName.match(/^\$?(.*?)(?:\/(.+))?$/);
+
+            const pluginDisplayName = colorize(`Plugin Name: $${plugin}`, '33'); // Yellow
+            const authorDisplay = colorize(`Plugin Author: ${author || 'default'}`, '33'); // Yellow
             const separatorLine = colorize('----------------------', '90'); // Gray
 
             console.log(`${pluginDisplayName}`);
+            console.log(`${authorDisplay}`);
             console.log(separatorLine);
         });
     } else {
