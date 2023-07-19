@@ -32,7 +32,7 @@ if (!name) {
            )}
           .:^5@&?^?PBGGPPGB5!:.   :^.   
          .:^5@@@&?^?PPPPGGBBY!::::.            ${chalk.hex("#8700FF")(
-             "Author: AkaruiDevelopment",
+             `Author: ${pack.author}`,
          )}
        ..:^5@@&&@&7^?PGPBBGBGY7^.       
     .. .::Y&&&@&&@#!^?PGGGPPBBY~:.      
