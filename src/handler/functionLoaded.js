@@ -50,4 +50,4 @@ const logUserPlugins = (enabledPlugins) => {
     });
 };
 
-module.exports = { logEnabledPlugins, logUserPlugins };
+module.exports = {logEnabledPlugins, logUserPlugins};

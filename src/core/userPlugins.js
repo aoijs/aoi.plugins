@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { logUserPlugins } = require('./functionLoaded');
+const {logUserPlugins} = require('../handler/functionLoaded');
 
 class UserPlugins {
     constructor(args) {
@@ -31,4 +31,4 @@ class UserPlugins {
     }
 }
 
-module.exports = { UserPlugins };
+module.exports = {UserPlugins};
