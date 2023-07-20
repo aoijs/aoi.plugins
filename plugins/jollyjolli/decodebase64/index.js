@@ -1,3 +1,5 @@
+const decodeBase64  = require('./decodeBase64')
+
 module.exports = {
         pkgJson: require('./package.json'),
         load: [],
@@ -6,5 +8,5 @@ module.exports = {
             post: [],
         },
         events: [],
-        functions: [],
+        functions: [decodeBase64],
     }
