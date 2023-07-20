@@ -2,7 +2,7 @@ module.exports = {
     name: '$os',
     type: 'djs',
     author: "default",
-    version: "6.4.0",
+    version: ["6.4.0"],
     description: "Returns the OS of the system",
     example: "The OS of the system is $os",
     code: async d => {

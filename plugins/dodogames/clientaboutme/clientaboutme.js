@@ -2,7 +2,7 @@ module.exports = {
     name: '$clientaboutme',
     type: 'djs',
     author: "dodoGames",
-    version: "6.4.0",
+    version: ["6.4.0"],
     description: "Returns the bot about me by returning the application description from developer portal",
     example: "If the application description is test then it will return test upon running the function",
     code: async d => {
