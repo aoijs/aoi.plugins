@@ -13,6 +13,16 @@ import pkgWarn from "../handler/pkgWarn";
 export class PluginManager {
     client: AoiClient;
     plugins: Map<any, any>;
+    customFunctions: any[] = [];
+    loadFunctions: any[] = [];
+    eventsFunctions: any[] = [];
+    commandsFunctions: {
+        pre: any[];
+        post: any[];
+    }  = {
+        pre: [],
+        post: [],
+    };
     constructor(client: AoiClient) {
         pkgWarn();
         this.client = client;
@@ -51,7 +61,6 @@ export class PluginManager {
                 });
             } else {
                 const data = await this.#fetchPlugin(plugin);
-                pluginData.push(data);
 
                 const buffer = data.data;
                 const file = data.plugin.replace("/", "@");
@@ -66,11 +75,30 @@ export class PluginManager {
                     const plugin = require(process.cwd() + "/" + path);
                     this.plugins.set(data.plugin, plugin);
                     writer.close();
+
+                    const p = require(process.cwd() + "/" + path);
+                    data.data = p;
+                    pluginData.push(data);
                 });
             }
         }
         const chalk = (await import("chalk")).default;
         const boxen = (await import("boxen")).default;
+
+        for(const plugin of pluginData) {
+            if(!plugin.error) {
+                this.plugins.set(plugin.plugin, plugin.data);
+                this.customFunctions.push(...plugin.data.functions);
+                this.loadFunctions.push(...plugin.data.load);
+                this.eventsFunctions.push(...plugin.data.events);
+                this.commandsFunctions.pre.push(...plugin.data.commands.pre);
+                this.commandsFunctions.post.push(...plugin.data.commands.post);
+            }
+        }
+
+        for (const func of this.customFunctions) {
+            this.client.functionManager.createFunction(func)
+        }
 
         const box = boxen(
             chalk.bold("Plugin Manager") +
@@ -92,8 +120,7 @@ export class PluginManager {
                 align: "left",
                 backgroundColor: "#101010",
                 title: "AoiLib",
-                float: "center",
-                fullscreen: true,
+                float: "left",
             },
         );
 

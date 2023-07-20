@@ -4,7 +4,7 @@
 import chalk from "chalk";
 import boxen from "boxen";
 import path from "path";
-import { appendFileSync, existsSync, readFileSync, writeFileSync } from "fs";
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import * as esbuild from "esbuild";
 import createPlugin from "./createPlugin.mjs";
 import { getPluginUrl } from "./util.mjs";
@@ -175,6 +175,10 @@ if (!name) {
             pluginName,
         };
     });
+
+    if(!existsSync(process.cwd() + "/node_modules/.aoijs.plugins")) {
+       mkdirSync(process.cwd() + "/node_modules/.aoijs.plugins");
+    }
 
     for (const plugin of plugins) {
         if (!existsSync(process.cwd() + "/aoijs.plugins")) {
