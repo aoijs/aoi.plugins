@@ -1,3 +1,5 @@
+const createAutomodRule = require('./createAutomodRule')
+
 module.exports = {
         pkgJson: require('./package.json'),
         load: [],
@@ -6,5 +8,5 @@ module.exports = {
             post: [],
         },
         events: [],
-        functions: [],
+        functions: [createAutomodRule],
     }
