@@ -12,7 +12,7 @@ var require_os = __commonJS({
       name: "$os",
       type: "djs",
       author: "default",
-      version: "6.4.0",
+      version: ["6.4.0"],
       description: "Returns the OS of the system",
       example: "The OS of the system is $os",
       code: async (d) => {
@@ -31,7 +31,7 @@ var require_os = __commonJS({
 var require_package = __commonJS({
   "plugins/default/os/package.json"(exports2, module2) {
     module2.exports = {
-      name: "default/os",
+      name: "@default/os",
       version: "1.0.0"
     };
   }

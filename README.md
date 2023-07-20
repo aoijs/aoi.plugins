@@ -7,7 +7,7 @@ A plugin library for aoi.js that adds more functions to your aoi.js bot.
 You can install the package using npm:
 
 ```shell
-npm aoi.js-library
+npm install aoi.js-library
 ```
 
 ## Setup 
@@ -37,6 +37,7 @@ bot.command({
     name: "ping",
     code: `Pong! $pingms`
 });
+
 
 const pluginManager = new PluginManager(bot);
 
@@ -76,6 +77,7 @@ const pluginManager = new PluginManager(bot);
 
 The Plugins class provides a way to load and manage plugins for your Discord bot.
 
+
 To load plugins: 
 
 ```javascript
@@ -96,6 +98,7 @@ to create your own plugins you can use the command line interface.
 
 ```shell
 npx aoilib create username/pluginname
+
 ```
 this will generate a boilerplate project for your plugin.
 

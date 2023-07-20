@@ -6,6 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node index.js",
+    "build": "npx tsc",
     "prettycheck": "prettier --check \"src/**/*.js\"",
     "prettywrite": "prettier --write \"src/**/*.js\""
   },
