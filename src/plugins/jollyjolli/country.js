@@ -11,8 +11,6 @@ async function getCountryData(country) {
   return countryData;
 }
 
-// $country[country;format]
-
 module.exports = {
   name: "$country",
   type: "djs",
