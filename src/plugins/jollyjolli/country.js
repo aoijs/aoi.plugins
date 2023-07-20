@@ -16,6 +16,10 @@ async function getCountryData(country) {
 module.exports = {
   name: "$country",
   type: "djs",
+  author: "jollijolli",
+  version: ["6.4.0"],
+  description: "Get information about a country.",
+  example: "$country[China;China's Capital: {capital_en}]",
   code: async (d) => {
     const data = d.util.aoiFunc(d);
     const [country, format, imageValue] = data.inside.splits;
