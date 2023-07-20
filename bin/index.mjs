@@ -111,7 +111,7 @@ if (!name) {
             borderColor: "cyan",
             align: "left",
             backgroundColor: "#101010",
-            title: "AoiBun",
+            title: "AoiLib",
             float: "center",
             fullscreen: true,
             height: "100%",

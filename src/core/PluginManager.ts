@@ -88,6 +88,12 @@ export class PluginManager {
                 padding: 1,
                 margin: 1,
                 borderStyle: "round",
+                borderColor: "cyan",
+                align: "left",
+                backgroundColor: "#101010",
+                title: "AoiLib",
+                float: "center",
+                fullscreen: true,
             },
         );
 
