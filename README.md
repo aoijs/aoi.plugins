@@ -14,7 +14,7 @@ npm aoi.js-library
 
 ```javascript
 const { AoiClient } = require("aoi.js");
-const { Plugins } = require("aoi.js-library");
+const { PluginManager } = require("aoi.js-library");
 
 const bot = new AoiClient({
     token: "DISCORD BOT TOKEN",
@@ -38,7 +38,37 @@ bot.command({
     code: `Pong! $pingms`
 });
 
-new Plugins({ bot }).loadPlugins(); // Load all Plugins Functions from aoi.js-library 
+const pluginManager = new PluginManager(bot);
+
+pluginManager.loadPlugins(
+    "default/os",
+    "default/comment",
+)   // Load all Plugins Functions from aoi.js-library 
+
+```
+
+### Add via command line interface
+
+You can also add plugins via the command line interface.
+
+```shell
+npx aoilib add default/os default/comment
+```
+> * this will add the plugins to `aoijs.plugins` file
+
+now the setup will be changed to:
+
+```diff
+
+const pluginManager = new PluginManager(bot);
+
+- pluginManager.loadPlugins(
+-     "default/os",
+-     "default/comment",
+- ); // Load all Plugins Functions from aoi.js-library 
+
++ pluginManager.load();
+
 ```
 
 
@@ -46,26 +76,43 @@ new Plugins({ bot }).loadPlugins(); // Load all Plugins Functions from aoi.js-li
 
 The Plugins class provides a way to load and manage plugins for your Discord bot.
 
-To load all available plugins:
+To load plugins: 
 
 ```javascript
-new Plugins({ bot }).loadPlugins();
+pluginManager.loadPlugins(
+    "default/os",
+    "default/comment",
+)
+```
+or
+```javascript
+pluginManager.load(); // if plugins are added via command line interface
 
 ```
 
-To load specific plugins:
+## Create your own plugins
 
-```javascript
-new Plugins({ bot }).loadPlugins(['$comment']);
+to create your own plugins you can use the command line interface.
+
+```shell
+npx aoilib create username/pluginname
+```
+this will generate a boilerplate project for your plugin.
+
+after adding your code to the plugin you can prepare it for library by using the command line interface.
+
+```shell
+npx aoilib bundle username/pluginname
 ```
 
-By adding this function in the field, it'll only **enable $comment**, it supports an multiple array if provided otherwise ignored.
+this will generate a bundle file for your plugin which can be used in the library.
 
-## Add your plugins to the library
+
+## Add plugins to the library
+
 
 To add your plugins to the library, you can add via **Pull Request** on the **[GitHub Repository](https://github.com/Leref/aoi.js-library/pulls)**.
 
-## User Plugins
 
 The UserPlugins class allows you to load user-specific plugins for your Discord bot from a directory of your choice.
 
@@ -102,4 +149,4 @@ module.exports = {
 }
 ```
 
-### [Available Plugins](https://github.com/Leref/aoi.js-library/tree/main/src/plugins)
+### [Available Plugins](https://github.com/Leref/aoi.js-library/tree/main/plugins)
