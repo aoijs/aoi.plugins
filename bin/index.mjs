@@ -9,7 +9,7 @@ import * as esbuild from "esbuild";
 import createPlugin from "./createPlugin.mjs";
 import { getPluginUrl } from "./util.mjs";
 const pack = JSON.parse(
-    readFileSync(path.join( process.cwd(),"./package.json"), "utf-8"),
+    readFileSync(path.join(process.cwd(), "./package.json"), "utf-8"),
 );
 const argv = process.argv.slice(2).map((x) => x.trim());
 
@@ -99,9 +99,9 @@ if (!name) {
                         "#9721A9",
                     )(desc.aliases.join(" ").padEnd(15, " "))} ${chalk.hex(
                         "#A64253",
-                    )(desc.desc.padEnd(45, " "))} ${chalk.hex("#00FFF0")(
-                        desc.usage,
-                    ).padEnd(10, " ")}`,
+                    )(desc.desc.padEnd(45, " "))} ${chalk
+                        .hex("#00FFF0")(desc.usage)
+                        .padEnd(10, " ")}`,
             )
             .join("\n"),
         {
@@ -123,21 +123,21 @@ if (!name) {
     console.log(chalk.hex("#A64253")(pack.version));
 } else if (name === "create" || name === "-c" || name === "--create") {
     const dir = argv.filter((x) => !x.startsWith("--"))[0];
-    if(!dir) {
-        console.log(chalk.hex("#A64253")("Please specify a directory!"))
-        process.exit(1)
+    if (!dir) {
+        console.log(chalk.hex("#A64253")("Please specify a directory!"));
+        process.exit(1);
     }
 
     createPlugin(dir);
-
-    
 } else if (name === "bundle" || name === "-b" || name === "--bundle") {
     const dir = argv.filter((x) => !x.startsWith("--"))[0];
-    if(!dir) {
-        console.log(chalk.hex("#A64253")("Please specify a directory!"))
-        process.exit(1)
+    if (!dir) {
+        console.log(chalk.hex("#A64253")("Please specify a directory!"));
+        process.exit(1);
     }
-    const pkgJson = JSON.parse(readFileSync(`${process.cwd()}/plugins/${dir}/package.json`, "utf-8"));
+    const pkgJson = JSON.parse(
+        readFileSync(`${process.cwd()}/plugins/${dir}/package.json`, "utf-8"),
+    );
     const options = {
         entryPoints: [`plugins/${dir}/index.js`],
         bundle: true,
@@ -150,70 +150,99 @@ if (!name) {
         ],
     };
     console.log(chalk.hex("#A64253")("Bundling..."));
-    console.log(options)
+    console.log(options);
     await esbuild.build(options);
 
-    console.log(chalk.hex("#A64253")("Bundled!"))
+    console.log(chalk.hex("#A64253")("Bundled!"));
 } else if (name === "add") {
-    const plugin = argv.filter((x) => !x.startsWith("--"))[0];
+    let plugins = argv.filter((x) => !x.startsWith("--"));
     const isForced = argv.includes("--force");
 
-    if(!plugin) {
-        console.log(chalk.hex("#A64253")("Please specify a plugin!"))
-        process.exit(1)
+    if (!plugins.length) {
+        console.log(chalk.hex("#A64253")("Please specify a plugin!"));
+        process.exit(1);
     }
-    let [username, pluginName] = plugin.split("/")
-    if(!pluginName) {
-        pluginName = username
-        username = "default"
-    }
-    if(!existsSync(process.cwd()+"/aoijs.plugins")) {
-        writeFileSync(process.cwd()+"/aoijs.plugins", "");
-    }
+    plugins = plugins.map((x) => {
+        const plugin = x.trim();
+        const [username, pluginName] = plugin.split("/");
+        if (!pluginName) {
+            pluginName = username;
+            username = "default";
+        }
 
-    if(readFileSync(process.cwd()+"/aoijs.plugins", "utf-8").split("\n").includes(plugin) && !isForced) {
-        console.log(chalk.hex("#A64253")("Plugin already exists!"))
-        process.exit(1)
+        return {
+            username,
+            pluginName,
+        };
+    });
+
+    for (const plugin of plugins) {
+        if (!existsSync(process.cwd() + "/aoijs.plugins")) {
+            writeFileSync(process.cwd() + "/aoijs.plugins", "");
+        }
+
+        if (
+            readFileSync(process.cwd() + "/aoijs.plugins", "utf-8")
+                .split("\n")
+                .includes(plugin) &&
+            !isForced
+        ) {
+            console.log(chalk.hex("#A64253")("Plugin already exists!"));
+            process.exit(1);
+        }
+
+        const pluginUrl = await getPluginUrl(
+            plugin.username,
+            plugin.pluginName,
+        );
+        const pluginFullName = `${plugin.username}/${plugin.pluginName}`;
+        const pluginData = await fetch(pluginUrl).then((res) => res.text());
+        writeFileSync(
+            process.cwd() +
+                `/node_modules/.aoijs.plugins/${pluginFullName.replace("/", "@")}.js`,
+            pluginData,
+        );
+        appendFileSync(process.cwd() + "/aoijs.plugins", pluginFullName + "\n");
     }
-
-    const pluginUrl = await getPluginUrl(username, pluginName);
-    const pluginData = await fetch(pluginUrl).then((res) => res.text());
-    writeFileSync(process.cwd()+`/node_modules/.aoijs.plugins/${plugin.replace("/", "@")}.js`, pluginData);
-    appendFileSync(process.cwd()+"/aoijs.plugins", plugin);
-    console.log(chalk.hex("#A64253")("Added plugin!"))
-
+    console.log(chalk.hex("#A64253")("Added plugin!"));
 } else if (name === "remove") {
-    const plugin = argv.filter((x) => !x.startsWith("--"))[0];
-    const isForced = argv.includes("--force");
+    const loadPlugins = argv.filter((x) => !x.startsWith("--"))
 
-    if(!plugin) {
-        console.log(chalk.hex("#A64253")("Please specify a plugin!"))
-        process.exit(1)
-    }
-    let [username, pluginName] = plugin.split("/")
-    if(!pluginName) {
-        pluginName = username
-        username = "default"
-    }
-    if(!existsSync(process.cwd()+"/aoijs.plugins")) {
-         console.log(chalk.hex("#A64253")("Completed!"));
-        process.exit(1)
+    if (!loadPlugins.length) {
+        console.log(chalk.hex("#A64253")("Please specify a plugin!"));
+        process.exit(1);
     }
 
-    if(!readFileSync(process.cwd()+"/aoijs.plugins", "utf-8").split("\n").includes(plugin) ) {
-        console.log(chalk.hex("#A64253")("Plugin doesn't exist!"))
-        process.exit(1)
+    if(!existsSync(process.cwd() + "/aoijs.plugins")) {
+        console.log(chalk.hex("#A64253")("No plugins to remove!"));
+        process.exit(1);
     }
 
-    const path = process.cwd()+`/node_modules/.aoijs.plugins/${plugin.replace("/", "@")}.js`
-    if(existsSync(path)) {
-        unlinkSync(path)
-    }
-    const plugins = readFileSync(process.cwd()+"/aoijs.plugins", "utf-8").split("\n").filter((x) => x !== plugin)
-    writeFileSync(process.cwd()+"/aoijs.plugins", plugins.join("\n"));
+    const plugins = readFileSync(process.cwd() + "/aoijs.plugins", "utf-8")
+        .split("\n")
+        .filter((x) => !loadPlugins.includes(x));
+    
+    writeFileSync(process.cwd() + "/aoijs.plugins", plugins.join("\n"));
 
-    console.log(chalk.hex("#A64253")("Removed plugin!"))
+    if(!existsSync(process.cwd() + "/node_modules/.aoijs.plugins")) {
+        console.log(chalk.hex("#A64253")("No plugins to remove!"));
+        process.exit(1);
+    }
+
+    for(const plugin of loadPlugins) {
+        const [username, pluginName] = plugin.split("/");
+        if (!pluginName) {
+            pluginName = username;
+            username = "default";
+        }
+
+        const file = plugin.replace("/", "@");
+        const path = `node_modules/.aoijs.plugins/${file}.js`;
+        unlinkSync(path);
+    }
+
+    console.log(chalk.hex("#A64253")("Removed plugin!"));
 } else {
-    console.log(chalk.hex("#A64253")("Unknown command!"))
-    process.exit(1)
+    console.log(chalk.hex("#A64253")("Unknown command!"));
+    process.exit(1);
 }
