@@ -65,7 +65,7 @@ new Plugins({ bot }).loadPlugins([
 ]);
 ```
 
-By adding this function in the field, it'll only **enable $comment**, it supports an multiple array if provided otherwise ignored.
+By adding this function in the field, it'll only **enable $comment**, it supports a multiple array if provided otherwise ignored.
 
 ## User Plugins
 
