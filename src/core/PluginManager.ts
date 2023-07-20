@@ -10,6 +10,10 @@ import { Readable } from "node:stream";
 
 import { ReadableStream } from "stream/web";
 import pkgWarn from "../handler/pkgWarn";
+import { exec } from "node:child_process";
+import { promisify } from "node:util";
+
+const execAsync = promisify(exec);
 export class PluginManager {
     client: AoiClient;
     plugins: Map<any, any>;
@@ -93,6 +97,14 @@ export class PluginManager {
                 this.eventsFunctions.push(...plugin.data.events);
                 this.commandsFunctions.pre.push(...plugin.data.commands.pre);
                 this.commandsFunctions.post.push(...plugin.data.commands.post);
+
+                const deps = Object.keys(plugin.data.dependencies ?? {}).map(x => 
+                    `${x}@${plugin.data.dependencies[x]}`)
+                if(deps.length) {
+                    console.log(chalk.blue(`Installing dependencies for ${plugin.plugin}`))
+                   await execAsync(`npm i ${deps.join(" ")}`);
+                    console.log(chalk.green(`Installed dependencies for ${plugin.plugin}`))
+                }
             }
         }
 
