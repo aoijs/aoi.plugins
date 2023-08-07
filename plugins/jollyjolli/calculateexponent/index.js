@@ -1,4 +1,4 @@
-const calculateExponent = require('./calculateexponent.js');
+const calculateExponent = require('./calculateExponent.js');
 
 module.exports = {
         pkgJson: require('./package.json'),
