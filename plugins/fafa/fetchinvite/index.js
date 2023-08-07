@@ -1,4 +1,4 @@
-const fetchInvite = require('./fetchinvite.js')
+const fetchInvite = require('./fetchInvite.js')
 
 module.exports = {
         pkgJson: require('./package.json'),

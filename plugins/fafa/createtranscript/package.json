@@ -1,4 +1,7 @@
 { 
     "name": "@fafa/createtranscript",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "dependencies": {
+        "discord-html-transcripts": "^3.1.5"
+    }
 }
