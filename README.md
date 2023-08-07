@@ -41,7 +41,6 @@ bot.command({
 new PluginManager(bot).loadPlugins("default/comment",); //Loads the from the default folder ($comment function)
 ```
 
-
 ## Plugins
 
 The Plugins class provides a way to load and manage plugins for your Discord bot.
@@ -49,21 +48,97 @@ The Plugins class provides a way to load and manage plugins for your Discord bot
 To load plugins:
 
 ```javascript
-new PluginManager(bot).loadPlugins("author/function",);
-
+pluginManager.loadPlugins(
+    "default/os",
+    "default/comment",
+)
 ```
 
-To load specific plugins:
+or
 
 ```javascript
-new PluginManager(bot).loadPlugins("default/comment",);
+pluginManager.load(); // if plugins are added via command line interface
 ```
 
-By adding this function in the field, it'll only **enable $comment**, it supports an multiple array if provided otherwise ignored.
+## Create your own plugins
 
-## Add your plugins to the library
+To create your own plugins you can use the command line interface.
+
+```shell
+npx aoilib create username/pluginname
+```
+This will generate a boilerplate project for your plugin.
+
+After adding your code to the plugin you can prepare it for library by using the command line interface.
+
+```shell
+npx aoilib bundle username/pluginname
+```
+
+This will generate a bundle file for your plugin which can be used in the library.
+
+## Add plugins to the library
 
 To add your plugins to the library, you can add via **Pull Request** on the **[GitHub Repository](https://github.com/Leref/aoi.js-library/pulls)**.
 
+## User Plugins
+
+The UserPlugins class allows you to load user-specific plugins for your Discord bot from a directory of your choice.
+
+To load user plugins:
+
+```javascript
+new UserPlugins({ bot }).loadUserPlugins('path');
+```
+
+Replace `path` with the actual path to the directory where your user plugins are located.
+
+### User Plugin Structure
+
+User plugins must be in the following format:
+
+**plugin.js** (path/plugin.js)
+
+```javascript
+module.exports = {
+    name: "Plugin Name", //$pluginName
+    type: "Plugin Type", //aoi.js or djs
+    code: `Plugin Code` //pluginCode
+}
+```
+
+### Example User Plugin (aoi.js)
+
+```javascript
+module.exports = {
+    name: "$lerefIcon", //$pluginName
+    type: "aoi.js", //aoi.js or djs
+    params: [], //aoi.js params
+    code: `$lerefAvatar` //pluginCode
+}
+```
+
+## Add via command line interface
+
+You can also add plugins via the command line interface.
+
+```shell
+npx aoilib add default/os default/comment
+```
+
+This will add the plugins to `aoijs.plugins` file
+
+As well the setup **must change** if you this method.
+
+```diff
+const pluginManager = new PluginManager(bot);
+
+- pluginManager.loadPlugins(
+-     "default/os",
+-     "default/comment",
+- ); // Load all Plugins Functions from aoi.js-library 
+
++ pluginManager.load();
+```
 
 ### [Available Plugins](https://github.com/Leref/aoi.js-library/tree/main/plugins)
