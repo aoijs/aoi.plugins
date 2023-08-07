@@ -81,44 +81,8 @@ This will generate a bundle file for your plugin which can be used in the librar
 
 To add your plugins to the library, you can add via **Pull Request** on the **[GitHub Repository](https://github.com/Leref/aoi.js-library/pulls)**.
 
-## User Plugins
 
-The UserPlugins class allows you to load user-specific plugins for your Discord bot from a directory of your choice.
-
-To load user plugins:
-
-```javascript
-new UserPlugins({ bot }).loadUserPlugins('path');
-```
-
-Replace `path` with the actual path to the directory where your user plugins are located.
-
-### User Plugin Structure
-
-User plugins must be in the following format:
-
-**plugin.js** (path/plugin.js)
-
-```javascript
-module.exports = {
-    name: "Plugin Name", //$pluginName
-    type: "Plugin Type", //aoi.js or djs
-    code: `Plugin Code` //pluginCode
-}
-```
-
-### Example User Plugin (aoi.js)
-
-```javascript
-module.exports = {
-    name: "$lerefIcon", //$pluginName
-    type: "aoi.js", //aoi.js or djs
-    params: [], //aoi.js params
-    code: `$lerefAvatar` //pluginCode
-}
-```
-
-## Add via command line interface
+## Add plugins via command line interface
 
 You can also add plugins via the command line interface.
 
