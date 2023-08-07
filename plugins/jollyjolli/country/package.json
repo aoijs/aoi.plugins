@@ -1,4 +1,7 @@
 { 
     "name": "@jollyjolli/country",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "dependencies": {
+        "node-fetch": "^2.6.12"
+    }
 }
