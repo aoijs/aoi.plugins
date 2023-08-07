@@ -4,7 +4,7 @@
 import chalk from "chalk";
 import boxen from "boxen";
 import path from "path";
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import {appendFileSync, existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync} from "fs";
 import * as esbuild from "esbuild";
 import createPlugin from "./createPlugin.mjs";
 import { getPluginUrl } from "./util.mjs";
@@ -164,7 +164,7 @@ if (!name) {
     }
     plugins = plugins.map((x) => {
         const plugin = x.trim();
-        const [username, pluginName] = plugin.split("/");
+        let [username, pluginName] = plugin.split("/");
         if (!pluginName) {
             pluginName = username;
             username = "default";
@@ -234,7 +234,7 @@ if (!name) {
     }
 
     for(const plugin of loadPlugins) {
-        const [username, pluginName] = plugin.split("/");
+        let [username, pluginName] = plugin.split("/");
         if (!pluginName) {
             pluginName = username;
             username = "default";
