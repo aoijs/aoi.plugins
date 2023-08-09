@@ -12,4 +12,3 @@ src/tests/
 .idea
 .vscode
 .DS_Store
-/dist

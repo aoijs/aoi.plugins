@@ -10,11 +10,11 @@ You can install the package using npm:
 npm install aoi.js-library
 ```
 
-## Setup 
+## Setup
 
 ```javascript
-const { AoiClient } = require("aoi.js");
-const { PluginManager } = require("aoi.js-library");
+const {AoiClient} = require("aoi.js");
+const {PluginManager} = require("aoi.js-library");
 
 const bot = new AoiClient({
     token: "DISCORD BOT TOKEN",
@@ -67,6 +67,7 @@ To create your own plugins you can use the command line interface.
 ```shell
 npx aoilib create username/pluginname
 ```
+
 This will generate a boilerplate project for your plugin.
 
 After adding your code to the plugin you can prepare it for library by using the command line interface.
@@ -80,7 +81,6 @@ This will generate a bundle file for your plugin which can be used in the librar
 ## Add plugins to the library
 
 To add your plugins to the library, you can add via **Pull Request** on the **[GitHub Repository](https://github.com/Leref/aoi.js-library/pulls)**.
-
 
 ## Add plugins via command line interface
 
