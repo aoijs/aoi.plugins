@@ -1,5 +1,5 @@
 export default async function pkgWarn() {
-    const pack = require(process.cwd() + "/package.json");
+    const pack = require(process.cwd() + "./package.json");
 
     const version = pack.version as string;
 
