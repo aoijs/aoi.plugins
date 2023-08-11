@@ -1,4 +1,4 @@
-const advancedSplitText = require('./tesseract')
+const tesseract = require('./tesseract')
 
 module.exports = {
         pkgJson: require('./package.json'),
