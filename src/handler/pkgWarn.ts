@@ -1,12 +1,15 @@
 import path from 'path';
 
 export default async function pkgWarn() {
-    const packageJsonPath = path.resolve(process.cwd(), 'package.json');
-    const pack = require(packageJsonPath);
-
-    const version = pack.version as string;
-
     try {
+        // Construct the path to the package's package.json
+        const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+
+        // Import the package.json
+        const pack = require(packageJsonPath);
+
+        const version = pack.version as string;
+
         const res = await fetch("https://registry.npmjs.org/aoi.js-library", {
             headers: {
                 "User-Agent": "aoi.js-library",

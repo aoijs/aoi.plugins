@@ -5,10 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
 async function pkgWarn() {
-    const packageJsonPath = path_1.default.resolve(process.cwd(), 'package.json');
-    const pack = require(packageJsonPath);
-    const version = pack.version;
     try {
+        // Construct the path to the package's package.json
+        const packageJsonPath = path_1.default.resolve(__dirname, '..', '..', 'package.json');
+        // Import the package.json
+        const pack = require(packageJsonPath);
+        const version = pack.version;
         const res = await fetch("https://registry.npmjs.org/aoi.js-library", {
             headers: {
                 "User-Agent": "aoi.js-library",
