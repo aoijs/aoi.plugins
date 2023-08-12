@@ -20,13 +20,13 @@ var require_tesseract = __commonJS({
         const [url, language, logging = false] = data.inside.splits;
         let ready;
         try {
-          require("tesseract");
+          require("tesseract.js");
           ready = true;
         } catch (e) {
           ready = false;
         }
         if (ready === false) {
-          d.aoiError.fnError(
+          return d.aoiError.fnError(
             d,
             "custom",
             {},
