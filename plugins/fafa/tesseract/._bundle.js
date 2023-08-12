@@ -171,7 +171,6 @@ var require_package = __commonJS({
       name: "@fafa/tesseract",
       version: "1.0.0",
       dependencies: {
-        tesseract: "^0.0.3",
         "tesseract.js": "^4.1.1"
       }
     };
