@@ -1,5 +1,6 @@
 #Ignore modules
-plugins/lord/askgpt/node_modules
+node_modules
+plugins
 
 #Ignore database files
 database
