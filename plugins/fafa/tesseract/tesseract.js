@@ -4,8 +4,7 @@ module.exports = {
   author: "fafa",
   version: ["6.4.0", "6.5.0"],
   description: "Returns the image text content.",
-  example:
-    "$tesseract[https://cdn.discordapp.com/attachments/832704676096245800/1139659988164419714/image.png;eng;true]",
+  example: "$tesseract[https://cdn.discordapp.com/attachments/832704676096245800/1139659988164419714/image.png;eng;true]",
   code: async (d) => {
     const data = d.util.aoiFunc(d);
     const [url, language, logging = false] = data.inside.splits;
