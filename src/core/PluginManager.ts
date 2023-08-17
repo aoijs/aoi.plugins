@@ -1,19 +1,15 @@
-import { AoiClient } from "aoi.js";
-import {
-    existsSync,
-    readFileSync,
-    mkdirSync,
-    createWriteStream,
-} from "node:fs";
-import { getPluginUrl } from "../utils/helpers";
-import { Readable } from "node:stream";
+import {AoiClient} from "aoi.js";
+import {createWriteStream, existsSync, mkdirSync, readFileSync,} from "node:fs";
+import {getPluginUrl} from "../utils/helpers";
+import {Readable} from "node:stream";
 
-import { ReadableStream } from "stream/web";
+import {ReadableStream} from "stream/web";
 import pkgWarn from "../handler/pkgWarn";
-import { exec } from "node:child_process";
-import { promisify } from "node:util";
+import {exec} from "node:child_process";
+import {promisify} from "node:util";
 
 const execAsync = promisify(exec);
+
 export class PluginManager {
     client: AoiClient;
     plugins: Map<any, any>;
@@ -23,10 +19,11 @@ export class PluginManager {
     commandsFunctions: {
         pre: any[];
         post: any[];
-    }  = {
+    } = {
         pre: [],
         post: [],
     };
+
     constructor(client: AoiClient) {
         pkgWarn();
         this.client = client;
@@ -37,6 +34,7 @@ export class PluginManager {
             mkdirSync("node_modules/.aoijs.plugins");
         }
     }
+
     async load() {
         if (!existsSync("aoijs.plugins"))
             throw new Error("Plugin file not found");
@@ -46,6 +44,11 @@ export class PluginManager {
 
         await this.#load(plugins);
     }
+
+    async loadPlugins(...plugins: string[]) {
+        await this.#load(plugins);
+    }
+
     async #load(plugins: string[]) {
         const pluginData = [];
         for (const plugin of plugins) {
@@ -80,8 +83,7 @@ export class PluginManager {
                     this.plugins.set(data.plugin, plugin);
                     writer.close();
 
-                    const p = require(process.cwd() + "/" + path);
-                    data.data = p;
+                    data.data = require(process.cwd() + "/" + path);
                     pluginData.push(data);
                 });
             }
@@ -89,8 +91,8 @@ export class PluginManager {
         const chalk = (await import("chalk")).default;
         const boxen = (await import("boxen")).default;
 
-        for(const plugin of pluginData) {
-            if(!plugin.error) {
+        for (const plugin of pluginData) {
+            if (!plugin.error) {
                 this.plugins.set(plugin.plugin, plugin.data);
                 this.customFunctions.push(...plugin.data.functions);
                 this.loadFunctions.push(...plugin.data.load);
@@ -98,11 +100,11 @@ export class PluginManager {
                 this.commandsFunctions.pre.push(...plugin.data.commands.pre);
                 this.commandsFunctions.post.push(...plugin.data.commands.post);
 
-                const deps = Object.keys(plugin.data.dependencies ?? {}).map(x => 
+                const deps = Object.keys(plugin.data.dependencies ?? {}).map(x =>
                     `${x}@${plugin.data.dependencies[x]}`)
-                if(deps.length) {
+                if (deps.length) {
                     console.log(chalk.blue(`Installing dependencies for ${plugin.plugin}`))
-                   await execAsync(`npm i ${deps.join(" ")}`);
+                    await execAsync(`npm i ${deps.join(" ")}`);
                     console.log(chalk.green(`Installed dependencies for ${plugin.plugin}`))
                 }
             }
@@ -114,16 +116,16 @@ export class PluginManager {
 
         const box = boxen(
             chalk.bold("Plugin Manager") +
-                "\n" +
-                pluginData
-                    .map((data) => {
-                        if (data.error) {
-                            return chalk.red(data.message);
-                        } else {
-                            return chalk.green(`Loaded plugin: ${data.plugin}`);
-                        }
-                    })
-                    .join("\n"),
+            "\n" +
+            pluginData
+                .map((data) => {
+                    if (data.error) {
+                        return chalk.red(data.message);
+                    } else {
+                        return chalk.green(`Loaded plugin: ${data.plugin}`);
+                    }
+                })
+                .join("\n"),
             {
                 padding: 1,
                 margin: 1,
@@ -169,10 +171,6 @@ export class PluginManager {
                 plugin: `${username}/${plugin}`,
             };
         }
-    }
-
-    async loadPlugins(...plugins: string[]) {
-        await this.#load(plugins);
     }
 
     #hasPluginCached(plugin: string) {
