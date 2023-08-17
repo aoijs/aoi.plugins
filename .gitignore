@@ -1,6 +1,6 @@
 #Ignore modules
+/plugins
 node_modules
-plugins
 
 #Ignore database files
 database
