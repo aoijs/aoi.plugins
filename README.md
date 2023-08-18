@@ -38,7 +38,9 @@ bot.command({
     code: `Pong! $pingms`
 });
 
-new PluginManager(bot).loadPlugins("default/comment",); //Loads the from the default folder ($comment function)
+const pluginManager = new PluginManager(bot);
+
+pluginManager.loadPlugins("default/comment"); //Loads the from the default folder ($comment function)
 ```
 
 ## Plugins
