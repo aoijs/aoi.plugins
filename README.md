@@ -1,20 +1,26 @@
-# aoi.js-library
+<h1 align="center">@akarui/aoi.plugins</h1>
 
-A plugin library for aoi.js that adds more functions to your aoi.js bot.
+<p align="center">
+  <a href="https://www.npmjs.com/package/@akarui/aoi.plugins">
+    <img src="https://img.shields.io/npm/v/@akarui/aoi.plugins?style=for-the-badge"  alt="aoiinvite"/>
+  </a>
+  <a href="https://www.npmjs.com/package/@akarui/aoi.plugins">
+    <img src="https://img.shields.io/npm/dt/@akarui/aoi.plugins?style=for-the-badge"  alt="aoiinvite"/>
+  </a>
 
 ## Installation
 
 You can install the package using npm:
 
 ```shell
-npm install aoi.js-library
+npm install @akarui/aoi.plugins
 ```
 
 ## Setup
 
 ```javascript
 const {AoiClient} = require("aoi.js");
-const {PluginManager} = require("aoi.js-library");
+const {PluginManager} = require("@akarui/aoi.plugins");
 
 const bot = new AoiClient({
     token: "DISCORD BOT TOKEN",
@@ -82,7 +88,7 @@ This will generate a bundle file for your plugin which can be used in the librar
 
 ## Add plugins to the library
 
-To add your plugins to the library, you can add via **Pull Request** on the **[GitHub Repository](https://github.com/Leref/aoi.js-library/pulls)**.
+To add your plugins to the library, you can add via **Pull Request** on the **[GitHub Repository](https://github.com/Leref/@akarui/aoi.plugins/pulls)**.
 
 ## Add plugins via command line interface
 
@@ -102,9 +108,9 @@ const pluginManager = new PluginManager(bot);
 - pluginManager.loadPlugins(
 -     "default/os",
 -     "default/comment",
-- ); // Load all Plugins Functions from aoi.js-library 
+- ); // Load all Plugins Functions from @akarui/aoi.plugins 
 
 + pluginManager.load();
 ```
 
-### [Available Plugins](https://github.com/Leref/aoi.js-library/tree/main/plugins)
+### [Available Plugins](https://github.com/AkaruiDevelopment/aoi.plugins/tree/main/plugins)
