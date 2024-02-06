@@ -133,7 +133,7 @@ export class PluginManager {
                 borderColor: "cyan",
                 align: "left",
                 backgroundColor: "#101010",
-                title: "AoiLib",
+                title: "@akarui/aoi.plugins",
                 float: "left",
             },
         );

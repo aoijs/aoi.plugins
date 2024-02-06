@@ -10,9 +10,9 @@ export default async function pkgWarn() {
 
         const version = pack.version as string;
 
-        const res = await fetch("https://registry.npmjs.org/aoi.js-library", {
+        const res = await fetch("https://registry.npmjs.org/@akarui/aoi.plugins", {
             headers: {
-                "User-Agent": "aoi.js-library",
+                "User-Agent": "@akarui/aoi.plugins",
             },
         });
 
@@ -22,16 +22,16 @@ export default async function pkgWarn() {
 
         if (!isDevVersion && version !== latestVersion) {
             console.warn(
-                `\x1b[31mAoiLibrary:\x1B[0m ${pack.name} is outdated! Update with "npm install ${pack.name}@latest".`,
+                `\x1b[31m@akarui/aoi.plugins:\x1B[0m ${pack.name} is outdated! Update with "npm install ${pack.name}@latest".`,
             );
         } else if (isDevVersion) {
             console.warn(
-                "\x1b[31mAoiLibrary:\x1B[0m You are currently on a development version.",
+                "\x1b[31m@akarui/aoi.plugins:\x1B[0m You are currently on a development version.",
             );
         }
     } catch (error) {
         console.warn(
-            `\x1b[31mAoiLibrary:\x1B[0m Failed to check for updates: ${error}`,
+            `\x1b[31m@akarui/aoi.plugins:\x1B[0m Failed to check for updates: ${error}`,
         );
     }
 }
