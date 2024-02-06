@@ -39,6 +39,9 @@ class PluginManager {
             .map((x) => x.trim());
         await this.#load(plugins);
     }
+    async loadPlugins(...plugins) {
+        await this.#load(plugins);
+    }
     async #load(plugins) {
         const pluginData = [];
         for (const plugin of plugins) {
@@ -68,8 +71,7 @@ class PluginManager {
                     const plugin = require(process.cwd() + "/" + path);
                     this.plugins.set(data.plugin, plugin);
                     writer.close();
-                    const p = require(process.cwd() + "/" + path);
-                    data.data = p;
+                    data.data = require(process.cwd() + "/" + path);
                     pluginData.push(data);
                 });
             }
@@ -147,9 +149,6 @@ class PluginManager {
                 plugin: `${username}/${plugin}`,
             };
         }
-    }
-    async loadPlugins(...plugins) {
-        await this.#load(plugins);
     }
     #hasPluginCached(plugin) {
         const file = plugin.replace("/", "@");
