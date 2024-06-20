@@ -1,0 +1,7 @@
+{ 
+    "name": "@nanotechpikachu/anime-manga",
+    "version": "1.0.0",
+    "dependencies": {
+        "jikan4.js": "^1.5.8"
+    }
+}
