@@ -1,11 +1,11 @@
-<h1 align="center">@akarui/aoi.plugins</h1>
+<h1 align="center">@aoijs/aoi.plugins</h1>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@akarui/aoi.plugins">
-    <img src="https://img.shields.io/npm/v/@akarui/aoi.plugins?style=for-the-badge"  alt="aoiinvite"/>
+  <a href="https://www.npmjs.com/package/@aoijs/aoi.plugins">
+    <img src="https://img.shields.io/npm/v/@aoijs/aoi.plugins?style=for-the-badge"  alt="aoi.plugins"/>
   </a>
-  <a href="https://www.npmjs.com/package/@akarui/aoi.plugins">
-    <img src="https://img.shields.io/npm/dt/@akarui/aoi.plugins?style=for-the-badge"  alt="aoiinvite"/>
+  <a href="https://www.npmjs.com/package/@aoijs/aoi.plugins">
+    <img src="https://img.shields.io/npm/dt/@aoijs/aoi.plugins?style=for-the-badge"  alt="aoi.plugins"/>
   </a>
 
 ## Installation
@@ -13,14 +13,14 @@
 You can install the package using npm:
 
 ```shell
-npm install @akarui/aoi.plugins
+npm install @aoijs/aoi.plugins
 ```
 
 ## Setup
 
 ```javascript
 const {AoiClient} = require("aoi.js");
-const {PluginManager} = require("@akarui/aoi.plugins");
+const {PluginManager} = require("@aoijs/aoi.plugins");
 
 const bot = new AoiClient({
     token: "DISCORD BOT TOKEN",
@@ -29,7 +29,7 @@ const bot = new AoiClient({
     events: ["onMessage"],
     database: {
         type: "aoi.db",
-        db: require("@akarui/aoi.db"),
+        db: require("@aoijs/aoi.db"),
         tables: ["main"],
         path: "./database/",
         extraOptions: {
@@ -88,7 +88,7 @@ This will generate a bundle file for your plugin which can be used in the librar
 
 ## Add plugins to the library
 
-To add your plugins to the library, you can add via **Pull Request** on the **[GitHub Repository](https://github.com/Leref/@akarui/aoi.plugins/pulls)**.
+To add your plugins to the library, you can add via **Pull Request** on the **[GitHub Repository](https://github.com/aoijs/aoi.plugins/pulls)**.
 
 ## Add plugins via command line interface
 
@@ -108,9 +108,9 @@ const pluginManager = new PluginManager(bot);
 - pluginManager.loadPlugins(
 -     "default/os",
 -     "default/comment",
-- ); // Load all Plugins Functions from @akarui/aoi.plugins 
+- ); // Load all Plugins Functions from @aoijs/aoi.plugins 
 
 + pluginManager.load();
 ```
 
-### [Available Plugins](https://github.com/AkaruiDevelopment/aoi.plugins/tree/main/plugins)
+### [Available Plugins](https://github.com/aoijs/aoi.plugins/tree/main/plugins)

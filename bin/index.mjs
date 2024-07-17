@@ -68,27 +68,27 @@ if (!name) {
         help: {
             desc: "Shows this message",
             aliases: ["-h", "--help"],
-            usage: "aoilib [help | -h | --help]",
+            usage: "aoiplugins [help | -h | --help]",
         },
         version: {
-            desc: "Shows the version of AoiBun",
+            desc: "Shows the version of @aoijs/aoi.plugins",
             aliases: ["-v", "--version"],
-            usage: "aoilib [version | -v | --version]",
+            usage: "aoiplugins [version | -v | --version]",
         },
         create: {
             desc: "Creates a new aoi.js plugin setup",
             aliases: ["-c", "--create"],
-            usage: "aoilib [create | -c | --create] <dir>",
+            usage: "aoiplugins [create | -c | --create] <dir>",
         },
         bundle: {
             desc: "Bundles the project into a single file",
             aliases: ["-b", "--bundle"],
-            usage: "aoilib [bundle | -b | --bundle] <dir>",
+            usage: "aoiplugins [bundle | -b | --bundle] <dir>",
         },
         add: {
             desc: "Adds a plugin to the project",
             aliases: [],
-            usage: "aoilib add <plugin>",
+            usage: "aoiplugins add <plugin>",
         },
     };
     const msgbox = boxen(
@@ -111,7 +111,7 @@ if (!name) {
             borderColor: "cyan",
             align: "left",
             backgroundColor: "#101010",
-            title: "AoiLib",
+            title: "@aoijs/aoi.plugins",
             float: "center",
             fullscreen: true,
             height: "100%",

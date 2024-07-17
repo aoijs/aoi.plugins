@@ -1,5 +1,5 @@
 {
-  "name": "@akarui/aoi.plugins",
+  "name": "@aoijs/aoi.plugins",
   "version": "1.0.0",
   "description": "A package to help fetch and create functions with aoi.js",
   "author": "Leref <itzleref@gmail.com>",
@@ -51,10 +51,12 @@
     "undici": "^5.18.0"
   },
   "devDependencies": {
+    "@aoijs/aoi.db": "^0.0.0",
     "@types/node": "^20.4.2",
+    "aoi.js": "^6.8.5",
     "typescript": "^5.1.6"
   },
   "bin": {
-    "aoilib": "./bin/index.mjs"
+    "aoiplugins": "./bin/index.mjs"
   }
 }
